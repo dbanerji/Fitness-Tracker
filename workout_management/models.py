@@ -1,27 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-class User(AbstractUser):
-    age = models.PositiveIntegerField(null=True, blank=True)
-    height = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    weight = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='workout_management_users',
-        blank=True,
-        verbose_name='groups',
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='workout_management_users',
-        blank=True,
-        verbose_name='user permissions',
-        help_text='Specific permissions for this user.',
-    )
-
-    def __str__(self):
-        return self.username
+from django.contrib.auth.models import User
 
 
 class Exercise(models.Model):
@@ -32,27 +10,25 @@ class Exercise(models.Model):
 class Workout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    duration_minutes = models.PositiveIntegerField()
-    calories_burned = models.DecimalField(max_digits=6, decimal_places=2)
+    time = models.TimeField(default='06:00')
+    exercise = models.ForeignKey(Exercise,on_delete=models.CASCADE,null=True)
+    setnumber = models.TextField(default="Set 1")
+    numberOfReps = models.PositiveIntegerField(default=1)
+    weight = models.DecimalField(max_digits=4,decimal_places=1,default=5.0)
     notes = models.TextField(blank=True)
+    class Meta:
+            ordering = ['-date', '-time']  # Ordering by date and time by default
 
-class Goals(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    goal = models.CharField(max_length=255)
-    target_date = models.DateField()
-    achieved = models.BooleanField(default=False)
+    def clean(self):
+            # Custom validation
+        if self.number_of_reps <= 0:
+            raise ValidationError("Number of reps must be a positive integer.")
 
-class Progress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
-    weight = models.DecimalField(max_digits=5, decimal_places=2)
-    body_fat_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    def save(self, *args, **kwargs):
+            # Custom logic before saving
+            # You can add more custom logic here if needed
+        super().save(*args, **kwargs)
 
-class Nutrition(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
-    calories_consumed = models.PositiveIntegerField()
+    def __str__(self):
+            return f"{self.user.username}'s {self.exercise.name} Workout on {self.date}"
 
-class PaymentDetail(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    card_number = models.CharField(max_length=16)
