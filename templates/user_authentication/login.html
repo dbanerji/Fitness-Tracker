@@ -1,0 +1,31 @@
+{% extends "user_authentication/base.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'user_authentication/css/login.css' %}">
+{% endblock %} 
+
+{% block title %} Login {% endblock %}
+
+{% block heading %}
+<center>Login</center>
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+<br>
+{% if messages %}
+<ul class="messages">
+    {%for message in messages %}
+    <li {% if messages.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+
+
+{% endif %}
+{% endblock %}

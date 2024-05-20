@@ -13,11 +13,22 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+from django.contrib.messages import constants as messages
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR= os.path.join(BASE_DIR,"templates")
 STATIC_DIRC= os.path.join(BASE_DIR,"user_authentication.static")
 
+MESSAGE_TAGS = {
+    
+    messages.DEBUG : 'debug',
+    messages.INFO : 'info',
+    messages.SUCCESS : 'success',
+    messages.ERROR : 'error',
+    messages.WARNING : 'warning',    
+
+}
 env = environ.Env()
 environ.Env.read_env()
 
