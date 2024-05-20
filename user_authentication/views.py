@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import Http404
 
 from django.contrib.auth.models import User
+from django.contrib import auth,messages
 # Create your views here.
-from .forms import Signup
+from .forms import SignupForm,LoginForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def signup(request):
-    form = Signup(request.POST or None)
+    form = SignupForm(request.POST or None)
     if form.is_valid():
         password= form.cleaned_data.get("password")
         confirm_password = form.cleaned_data.get("confirm_password")
@@ -25,7 +27,26 @@ def signup(request):
                 new_user.save()
                 return render(request,'user_authentication/signup.html',{"form":form,"status":"Signed up Successfully!"})
     return render(request,'user_authentication/signup.html',{"form":form})
-def login(request):
-    return render(request,'user_authentication/login.html')
-def home(request):
-    return render(request,'user_authentication/home.html')
+def login_user(request):
+    
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+    
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            username = email.split('@')[0]
+            user = auth.authenticate(username=username,password=form.cleaned_data.get("password"))
+            if user:
+                auth.login(request,user)
+                messages.success(request, f'Welcome, {username}!')
+                return redirect('workout_management:home')
+            else:
+                messages.error(request,'Invalid credentials')
+
+        else:
+            messages.error(request,'Invalid credentials')
+    else:
+        form = LoginForm()
+
+    return render(request,'user_authentication/login.html',{"form":form})
+

@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from user_authentication import views
+from django.http import HttpResponseRedirect
 
 
 urlpatterns = [
-    path('',include('user_authentication.urls')),
     path('admin/', admin.site.urls),
+    path('user_authentication/',include('user_authentication.urls',namespace='authentication')),
+    path('workout_management/', include('workout_management.urls', namespace='workout_management')),
+    path('',lambda request: HttpResponseRedirect('user_authentication/signup/'))
 ]
