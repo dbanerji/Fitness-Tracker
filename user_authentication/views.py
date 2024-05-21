@@ -45,8 +45,9 @@ def login_user(request):
 
         else:
             messages.error(request,'Invalid credentials')
-    else:
-        form = LoginForm()
+    elif request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect('workout_management:home')
 
     return render(request,'user_authentication/login.html',{"form":form})
 
