@@ -1,0 +1,29 @@
+{% extends "user_authentication/base.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/fitness_home.css' %}">
+{% endblock %}
+
+{% block title %}
+    Fitness Logging Tracker - Home
+{% endblock %}
+
+{% block heading %}
+    Fitness Logging Tracker
+{% endblock %}
+
+{% block content %}
+<ul class="workouts">
+    {% for workout in workouts %}
+    <li>
+        <strong>{{ workout.date}}:</strong>
+        
+        {{ workout.user }} completed {{ workout.exercise }} for {{ workout.duration_minutes }} minutes.
+    </li>
+    
+    {% endfor %}
+</ul>
+</div>
+{% endblock %}

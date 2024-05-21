@@ -3,11 +3,28 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'user_authentication/css/login.css' %}">
-{% endblock %} 
+    <link rel="stylesheet" href="{% static 'css/fitness_home.css' %}">
+{% endblock %}
 
-{% block title %} Login {% endblock %}
+{% block title %}
+    Fitness Logging Tracker - Home
+{% endblock %}
 
 {% block heading %}
-<center>Home</center>
+    Fitness Logging Tracker
 {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form class="workout-logging" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <table>
+                    {{ form.as_table }}
+                </table>
+            </div>
+            <div class="form-group button-group">
+                <button type="submit">Log Workout</button>
+            </div>
+        </form>
+{%endblock%}
