@@ -17,5 +17,7 @@ def home(request):
     return render(request,'workout_management/home.html',{'form':form})
 
 def workout_view(request):
+    
+
     workouts = Workout.objects.filter(user=request.user)
     return render(request,'workout_management/workout_view.html',{"workouts":workouts})
