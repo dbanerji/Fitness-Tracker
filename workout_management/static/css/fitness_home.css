@@ -54,7 +54,15 @@ button {
 button:hover {
     background-color: #218838;
 }
+.btn-form{
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 
+}
 .workouts {
     list-style: none;
     padding: 0;
