@@ -51,15 +51,4 @@ Our platform caters to:
   - Extensive exercise database with descriptions and targeted muscle groups.
   - Custom workout creation and saving.
 
-### Progress and Goals
 
-- **Features**:
-  - Interactive dashboard visualizing user progress with charts and statistics.
-  - Goal setting and tracking functionality.
-
-### Nutrition Tracking (Subscription-based)
-
-- **Features**:
-  - Access to a comprehensive database of foods and their nutritional information.
-  - Daily intake logging using dropdown menus for food items.
-  - Secure subscription management with various plans.
