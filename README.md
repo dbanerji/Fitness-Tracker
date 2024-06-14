@@ -10,7 +10,6 @@ The Fitness Tracker Application is a state-of-the-art web platform designed to e
 
 - Provide an intuitive interface for tracking various fitness metrics.
 - Foster user engagement and motivation through interactive features and progress monitoring.
-- Implement a subscription-based nutrition tracking feature to enhance value and revenue generation.
 
 ## Target Audience
 
