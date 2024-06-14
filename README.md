@@ -34,9 +34,6 @@ Our platform caters to:
   - Workouts: Session logging.
   - Exercises: Detailed exercise database.
   - Progress: User progress tracking.
-  - Goals: Goal setting and monitoring.
-  - Nutrition: Subscription-based nutritional log.
-  - Payment Details: Secure payment information storage.
 
 ## Core Functionalities
 
